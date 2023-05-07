@@ -1,0 +1,62 @@
+<main class="container flex-column">
+  <section>
+    <h1 class="h4">Características</h1>
+    <ul>
+      <li>Indicador de que existen cambios pendientes</li>
+      <li>Bloquear botón de guardado si no hay cambios en el formulario y el formulario es válido</li>
+      <li>Ventana de confirmación que valida si el usuario desea salir sin guardar los cambios pendientes.</li>
+      li
+    </ul>
+  </section>
+  <form
+    class="form mt-4 w-100"
+    [formGroup]="backupForm"
+    backupFormWithState
+    [backupFormName]="'backupForm'"
+    [backupFormGroup]="backupForm"
+    [backupIdentifier]="backupForm.get('backupId')?.value"
+    [isEdit]="false"
+  >
+    <section
+      class="d-flex justify-content-end mb-2 text-secondary"
+      *ngIf="backupFormWithStateRef?.existsBackup"
+    >
+      <span class="text-primary">
+        <i class="bi bi-info-circle" style="font-size: 0.75rem"></i
+        ><small class="ps-1">Cambios sin guardar</small>
+        </span
+      >
+    </section>
+    <section class="form-group">
+      <label for="name" class="form-label">Nombre</label>
+      <input type="text" class="form-control" formControlName="name" />
+    </section>
+    <section>
+      <label for="content">Contenido</label>
+      <textarea class="form-control" formControlName="content" row="3" cols="10"></textarea>
+    </section>
+    <section>
+      <label for="options">Opciones</label>
+      <select name="options" class="form-select" id="options" formControlName="options">
+        <option value="" disabled>Selecciona una opción</option>
+        <option value="redraw">Redibujar</option>
+        <option value="zoom">Ampliar</option>
+      </select>
+    </section>
+    <section>
+      <label for="salary">Salario</label>
+      <input type="number" class="form-control" name="salary" id="salary" formControlName="salary" />
+    </section>
+    <section class="mt-3">
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="save()"
+        [disabled]="!backupFormWithStateRef?.canSaveForm"
+      >
+        Save
+      </button>
+      <button class="btn btn-light ms-3" type="button" (click)="leave()">Salir</button>
+    </section>
+  </form>
+</main>
